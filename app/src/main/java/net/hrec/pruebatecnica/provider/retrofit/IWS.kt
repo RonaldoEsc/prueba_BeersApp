@@ -1,6 +1,6 @@
 package net.hrec.pruebatecnica.provider.retrofit
 
-import com.google.gson.JsonObject
+import net.hrec.pruebatecnica.model.BeersResponse
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -10,11 +10,11 @@ interface IWS {
 
     @Headers("Content-Type:application/json")
     @GET("beers")
-    fun allMenuHome(@Query("page") page:Int, @Query("per_page") perPage:Int): Call<JsonObject>
+    fun allMenuHome(@Query("page") page:Int, @Query("per_page") perPage:Int): Call<List<BeersResponse>>
 
     @Headers("Content-Type:application/json")
     @GET("beers/{id}")
-    fun getBeerDescription(@Path("id") id: String): Call<JsonObject>
+    fun getBeerDescription(@Path("id") id: String): Call<BeersResponse>
 
     companion object {
         fun create(): IWS {
