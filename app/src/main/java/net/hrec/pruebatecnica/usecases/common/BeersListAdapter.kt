@@ -17,6 +17,7 @@ class BeersListAdapter(val beer: (Int) -> Unit): RecyclerView.Adapter<BeersListA
         private val tvBeerTagName = binding.tvBeerTagName
         private val imgBeer = binding.imgBeer
         val ibFavorite = binding.ibFavorite
+        val clHolderEvent = binding.clHolderEvent
 
         fun bind(beer: BeersResponse) {
             tvBeerName.text = beer.name
@@ -74,6 +75,9 @@ class BeersListAdapter(val beer: (Int) -> Unit): RecyclerView.Adapter<BeersListA
                 }
             }
             notifyDataSetChanged()
+        }
+        holder.clHolderEvent.setOnClickListener {
+
         }
     }
 
