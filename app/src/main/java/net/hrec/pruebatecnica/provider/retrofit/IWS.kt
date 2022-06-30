@@ -1,6 +1,7 @@
 package net.hrec.pruebatecnica.provider.retrofit
 
 import net.hrec.pruebatecnica.model.BeersResponse
+import net.hrec.pruebatecnica.model.DetailBeerResponse
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,7 +15,7 @@ interface IWS {
 
     @Headers("Content-Type:application/json")
     @GET("beers/{id}")
-    fun getBeerDescription(@Path("id") id: Int): Call<BeersResponse>
+    fun getBeerDescription(@Path("id") id: Int): Call<DetailBeerResponse>
 
     companion object {
         fun create(): IWS {

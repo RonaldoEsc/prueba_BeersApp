@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.squareup.picasso.Picasso
+import net.hrec.pruebatecnica.R
 import net.hrec.pruebatecnica.databinding.FragmentDetalleBeerBinding
 import net.hrec.pruebatecnica.usecases.common.BeersListAdapter
 import net.hrec.pruebatecnica.usecases.home.HomeViewModel
@@ -36,7 +38,8 @@ class DetalleBeerFragment : Fragment() {
         viewModel.getBeers(id?.id ?: -1)
 
         viewModel.beersList.observe(viewLifecycleOwner) { beer ->
-
+            Picasso.get().load(beer.imageUrl).placeholder(R.drawable.progress_animation).into(binding.imgBeer)
+            binding.tvBeerName.text = beer.name
         }
     }
 }
