@@ -14,7 +14,9 @@
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right" />
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -25,17 +27,23 @@
             android:id="@+id/action_homeFragment_to_detalleBeerFragment"
             app:destination="@id/detalleBeerFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"/>
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
         <action
             android:id="@+id/action_homeFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"/>
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"/>
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -43,20 +51,21 @@
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
-            android:id="@+id/action_favoritesFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
+            android:id="@+id/action_favoritesFragment_to_detalleBeerFragment"
+            app:destination="@id/detalleBeerFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"/>
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/detalleBeerFragment"
         android:name="net.hrec.pruebatecnica.usecases.detalle.DetalleBeerFragment"
         android:label="fragment_detalle_beer"
         tools:layout="@layout/fragment_detalle_beer" >
-        <action
-            android:id="@+id/action_detalleBeerFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"/>
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
 </navigation>

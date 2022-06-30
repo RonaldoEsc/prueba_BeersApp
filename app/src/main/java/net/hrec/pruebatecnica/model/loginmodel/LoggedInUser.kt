@@ -1,4 +1,4 @@
-package net.hrec.pruebatecnica.data.model
+package net.hrec.pruebatecnica.model.loginmodel
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

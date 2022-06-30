@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import net.hrec.pruebatecnica.data.LoginRepository
-import net.hrec.pruebatecnica.data.Result
+import net.hrec.pruebatecnica.model.loginmodel.LoginRepository
+import net.hrec.pruebatecnica.model.loginmodel.Result
 
 import net.hrec.pruebatecnica.R
 

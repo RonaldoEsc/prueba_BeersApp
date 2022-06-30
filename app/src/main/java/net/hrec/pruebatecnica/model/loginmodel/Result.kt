@@ -1,4 +1,4 @@
-package net.hrec.pruebatecnica.data
+package net.hrec.pruebatecnica.model.loginmodel
 
 /**
  * A generic class that holds a value with its loading status.

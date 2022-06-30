@@ -14,7 +14,7 @@ interface IWS {
 
     @Headers("Content-Type:application/json")
     @GET("beers/{id}")
-    fun getBeerDescription(@Path("id") id: String): Call<BeersResponse>
+    fun getBeerDescription(@Path("id") id: Int): Call<BeersResponse>
 
     companion object {
         fun create(): IWS {

@@ -1,6 +1,4 @@
-package net.hrec.pruebatecnica.data
-
-import net.hrec.pruebatecnica.data.model.LoggedInUser
+package net.hrec.pruebatecnica.model.loginmodel
 
 /**
  * Class that requests authentication and user information from the remote data source and

@@ -9,7 +9,7 @@ import net.hrec.pruebatecnica.R
 import net.hrec.pruebatecnica.databinding.BeerViewHolderBinding
 import net.hrec.pruebatecnica.model.BeersResponse
 
-class BeersListAdapter(val beer: (Int) -> Unit): RecyclerView.Adapter<BeersListAdapter.BeerViewHolder>() {
+class BeersListAdapter(val beerId: (Int) -> Unit): RecyclerView.Adapter<BeersListAdapter.BeerViewHolder>() {
     private var listBeers = mutableListOf<BeersResponse>()
     private val favoriteSelectedList = mutableListOf<Int>()
     class BeerViewHolder(binding: BeerViewHolderBinding): RecyclerView.ViewHolder(binding.root) {
@@ -77,7 +77,7 @@ class BeersListAdapter(val beer: (Int) -> Unit): RecyclerView.Adapter<BeersListA
             notifyDataSetChanged()
         }
         holder.clHolderEvent.setOnClickListener {
-
+            beerId(beer.id!!)
         }
     }
 

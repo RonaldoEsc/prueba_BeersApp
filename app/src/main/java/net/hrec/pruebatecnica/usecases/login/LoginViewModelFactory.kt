@@ -2,8 +2,8 @@ package net.hrec.pruebatecnica.usecases.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import net.hrec.pruebatecnica.data.LoginDataSource
-import net.hrec.pruebatecnica.data.LoginRepository
+import net.hrec.pruebatecnica.model.loginmodel.LoginDataSource
+import net.hrec.pruebatecnica.model.loginmodel.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

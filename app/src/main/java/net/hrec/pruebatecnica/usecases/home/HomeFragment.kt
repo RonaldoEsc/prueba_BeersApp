@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import net.hrec.pruebatecnica.R
 import net.hrec.pruebatecnica.databinding.FragmentHomeBinding
 import net.hrec.pruebatecnica.databinding.FragmentLoginBinding
 import net.hrec.pruebatecnica.usecases.common.BeersListAdapter
+import net.hrec.pruebatecnica.usecases.common.interfaces.NavEventListener
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,7 +48,9 @@ class HomeFragment : Fragment() {
         llm.orientation = LinearLayoutManager.VERTICAL
         binding.rvBeers.layoutManager = llm
         binding.rvBeers.adapter = BeersListAdapter{ id ->
-
+            val navEvent: NavEventListener = activity as HomeActivity
+            val event = HomeFragmentDirections.actionHomeFragmentToDetalleBeerFragment(id)
+            navEvent.onNavigateChangeEvent(event)
         }
 
         viewModel.getBeers(1, 80)
