@@ -16,17 +16,22 @@ class DetalleBeerViewModel: ViewModel() {
     fun getBeers(id: Int) {
         if (id != -1) {
             val call = service.getBeerDescription(id)
-            call.enqueue(object : Callback<DetailBeerResponse> {
+            call.enqueue(object : Callback<List<DetailBeerResponse>> {
                 override fun onResponse(
-                    call: Call<DetailBeerResponse>,
-                    response: Response<DetailBeerResponse>
+                    call: Call<List<DetailBeerResponse>>,
+                    response: Response<List<DetailBeerResponse>>
                 ) {
-                    response.body().let {
-                        beersList.postValue(it)
+                    response.body()?.let {
+                        it.forEach { beer ->
+                            if (beer.id == id)
+                                beersList.postValue(beer)
+                        }
+
                     }
                 }
 
-                override fun onFailure(call: Call<DetailBeerResponse>, t: Throwable) {
+                override fun onFailure(call: Call<List<DetailBeerResponse>>, t: Throwable) {
+                    Log.e("fallo en ws de single beer", "mensaje: ${t.message}, localized: ${t.localizedMessage}")
                     call.cancel()
                 }
 

@@ -6,10 +6,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import net.hrec.pruebatecnica.databinding.ActivityHomeBinding
+import net.hrec.pruebatecnica.usecases.common.interfaces.BackEvent
 import net.hrec.pruebatecnica.usecases.common.interfaces.NavEventListener
 import kotlin.system.exitProcess
 
-class HomeActivity : AppCompatActivity(), NavEventListener{
+class HomeActivity : AppCompatActivity(), NavEventListener {
     private lateinit var binding: ActivityHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

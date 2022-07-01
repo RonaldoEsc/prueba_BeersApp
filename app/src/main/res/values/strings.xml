@@ -11,4 +11,15 @@
     <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="abv_txt">ABV</string>
+    <string name="ibu_txt">IBU</string>
+    <string name="og_txt">OG</string>
+    <string name="fg_txt">FG</string>
+    <string name="yeast_txt">Yeast</string>
+    <string name="beer_title">Beer</string>
+    <string name="brewed_txt">First Brewed: </string>
+    <string name="brewer_tip_txt">Brewers Tips:</string>
+    <string name="hops_txt">Hops:</string>
+    <string name="malt_txt">Malt:</string>
+    <string name="food_pairing_txt">Food Pairing</string>
 </resources>

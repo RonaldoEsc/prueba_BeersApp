@@ -9,26 +9,28 @@ data class DetailBeerResponse(
     var name: String? = null,
     @SerializedName("tagline")
     var tagline: String? = null,
+    @SerializedName("first_brewed")
+    var first_brewed: String? = null,
     @SerializedName("description")
     var description: String? = null,
     @SerializedName("image_url")
     var imageUrl: String? = null,
     @SerializedName("abv")
-    var abv: String? = null,
+    var abv: Double? = null,
     @SerializedName("ibu")
-    var ibu: String? = null,
+    var ibu: Double? = null,
     @SerializedName("target_fg")
-    var target_fg: String? = null,
+    var target_fg: Double? = null,
     @SerializedName("target_og")
-    var target_og: String? = null,
+    var target_og: Double? = null,
     @SerializedName("ebc")
-    var ebc: String? = null,
+    var ebc: Double? = null,
     @SerializedName("srm")
-    var srm: String? = null,
+    var srm: Double? = null,
     @SerializedName("ph")
-    var ph: String? = null,
+    var ph: Double? = null,
     @SerializedName("attenuation_level")
-    var attenuation_level: String? = null,
+    var attenuation_level: Double? = null,
     @SerializedName("volume")
     var volume: MeasurementUnit? = null,
     @SerializedName("boil_volume")
@@ -47,25 +49,44 @@ data class DetailBeerResponse(
 
 data class MeasurementUnit(
     @SerializedName("value")
-    var value: String? = null,
+    var value: Int? = null,
+    @SerializedName("unit")
+    var unit: String? = null
+)
+
+data class MeasurementDoubleUnit(
+    @SerializedName("value")
+    var value: Double? = null,
     @SerializedName("unit")
     var unit: String? = null
 )
 
 data class MethodBeer(
     @SerializedName("mash_temp")
-    var mash_temp: String? = null,
+    var mash_temp: List<MashMethod>? = null,
     @SerializedName("fermentation")
-    var fermentation: String? = null,
+    var fermentation: TempMethod? = null,
     @SerializedName("twist")
     var twist: String? = null
 )
 
+data class TempMethod(
+    @SerializedName("temp")
+    var temp: MeasurementUnit? = null
+)
+
+data class MashMethod(
+    @SerializedName("temp")
+    var temp: MeasurementUnit? = null,
+    @SerializedName("duration")
+    var duration: Int? = null
+)
+
 data class IngredientsBeer(
     @SerializedName("malt")
-    var malt: IngredientsBeerMalt? = null,
+    var malt: List<IngredientsBeerMalt>? = null,
     @SerializedName("hops")
-    var hops: IngredientsBeerHops? = null,
+    var hops: List<IngredientsBeerHops>? = null,
     @SerializedName("yeast")
     var yeast: String? = null
 )
@@ -74,14 +95,14 @@ data class IngredientsBeerMalt(
     @SerializedName("name")
     var name: String? = null,
     @SerializedName("amount")
-    var amount: MeasurementUnit? = null
+    var amount: MeasurementDoubleUnit? = null
 )
 
 data class IngredientsBeerHops(
     @SerializedName("name")
     var name: String? = null,
     @SerializedName("amount")
-    var amount: MeasurementUnit? = null,
+    var amount: MeasurementDoubleUnit? = null,
     @SerializedName("add")
     var add: String? = null,
     @SerializedName("attribute")
