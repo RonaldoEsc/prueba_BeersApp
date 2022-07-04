@@ -4,8 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
-import net.hrec.pruebatecnica.model.BeerDataFavorite
 import net.hrec.pruebatecnica.model.BeersResponse
 
 class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
@@ -55,27 +53,46 @@ class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null
         return name
     }
 
-    fun insertOrUpdateFavoriteBeer(beer: BeerDataFavorite) {
+    fun getAllFavorites(): MutableList<BeersResponse> {
+        val db = this.readableDatabase
+        val list = mutableListOf<BeersResponse>()
+        if (db.isOpen) {
+            val columns = arrayOf(
+                COLUMN_BEER_ID, COLUMN_BEER_NAME, COLUMN_BEER_TAG,
+                COLUMN_BEER_IMAGE, COLUMN_BEER_RATE
+            )
+
+            val cursor = db.query(
+                TABLE_FAVORITE_NAME, columns, null, null, null, null,
+                COLUMN_BEER_RATE, null
+            )
+            if (cursor.count > 0) {
+                cursor.moveToFirst()
+                do {
+                    val objRequest = BeersResponse()
+                    objRequest.id = cursor.getInt(cursor.getColumnIndex(COLUMN_BEER_ID))
+                    objRequest.name = cursor.getString(cursor.getColumnIndex(COLUMN_BEER_NAME))
+                    objRequest.tagline = cursor.getString(cursor.getColumnIndex(COLUMN_BEER_TAG))
+                    objRequest.imageUrl = cursor.getString(cursor.getColumnIndex(COLUMN_BEER_IMAGE))
+                    objRequest.rate = cursor.getInt(cursor.getColumnIndex(COLUMN_BEER_RATE))
+                    list.add(objRequest)
+                } while (cursor.moveToNext())
+            }
+        }
+        return list
+    }
+
+    fun insertFavoriteBeer(beer: BeersResponse) {
         val values = ContentValues()
         values.put(COLUMN_BEER_ID, beer.id)
         values.put(COLUMN_BEER_NAME, beer.name)
         values.put(COLUMN_BEER_TAG, beer.tagline)
         values.put(COLUMN_BEER_IMAGE, beer.imageUrl)
         values.put(COLUMN_BEER_RATE, beer.rate)
-        if (isBeerInTable(beer.id!!).isNotEmpty()) {
-            val db = this.writableDatabase
-            if (db.isOpen) {
-                val row = db.update(TABLE_FAVORITE_NAME, values, "$COLUMN_BEER_ID=?", arrayOf(beer.id.toString()))
-                Log.d("ROW DataBase", "$row")
-                db.close()
-            }
-        } else {
-            val db = this.writableDatabase
-            if (db.isOpen) {
-                val row = db.insert(TABLE_FAVORITE_NAME, null, values)
-                Log.d("ROW DataBase", "$row")
-                db.close()
-            }
+        val db = this.writableDatabase
+        if (db.isOpen) {
+            db.insert(TABLE_FAVORITE_NAME, null, values)
+            db.close()
         }
     }
 
@@ -86,6 +103,39 @@ class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null
         val whereArgs = arrayOf(id.toString())
         if (db.isOpen) {
             db.delete(TABLE_FAVORITE_NAME, where, whereArgs)
+            db.close()
+        }
+    }
+
+    fun isFavoriteBeer(id: Int): Boolean {
+        val db = this.readableDatabase
+        if (db.isOpen) {
+            val cursor = db.query(
+                TABLE_FAVORITE_NAME, arrayOf(COLUMN_BEER_ID), null, null, null, null,
+                null, null
+            )
+            if (cursor.count > 0) {
+                cursor.moveToFirst()
+                do {
+                    val tableId = cursor.getInt(cursor.getColumnIndex(COLUMN_BEER_ID))
+                    if (tableId == id) {
+                        db.close()
+                        return true
+                    }
+                } while (cursor.moveToNext())
+            }
+            db.close()
+            return false
+        }
+        return false
+    }
+
+    fun updateRate(id: Int, rate: Int) {
+        val values = ContentValues()
+        values.put(COLUMN_BEER_RATE, rate)
+        val db = this.writableDatabase
+        if(db.isOpen) {
+            db.update(TABLE_FAVORITE_NAME, values, "$COLUMN_BEER_ID=?", arrayOf(id.toString()))
             db.close()
         }
     }
@@ -101,7 +151,7 @@ class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null
         const val COLUMN_USER_PASSWORD = "password"
 
         //tabla de favoritos
-        const val TABLE_FAVORITE_NAME = "USERS"
+        const val TABLE_FAVORITE_NAME = "FAVORITE"
         const val COLUMN_BEER_ID = "beerId"
         const val COLUMN_BEER_NAME = "beerName"
         const val COLUMN_BEER_TAG = "beerTag"

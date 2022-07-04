@@ -12,9 +12,6 @@ import com.squareup.picasso.Picasso
 import net.hrec.pruebatecnica.R
 import net.hrec.pruebatecnica.databinding.FragmentDetalleBeerBinding
 import net.hrec.pruebatecnica.model.DetailBeerResponse
-import net.hrec.pruebatecnica.usecases.common.BeersListAdapter
-import net.hrec.pruebatecnica.usecases.common.interfaces.BackEvent
-import net.hrec.pruebatecnica.usecases.home.HomeViewModel
 import net.hrec.pruebatecnica.util.UtilString.Companion.convertDoubleOrIntToString
 
 class DetalleBeerFragment : Fragment() {

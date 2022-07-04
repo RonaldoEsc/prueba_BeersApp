@@ -9,8 +9,7 @@ data class BeersResponse(
     var name: String? = null,
     @SerializedName("tagline")
     var tagline: String? = null,
-    @SerializedName("description")
-    var description: String? = null,
     @SerializedName("image_url")
-    var imageUrl: String? = null
+    var imageUrl: String? = null,
+    var rate: Int = 0
 )

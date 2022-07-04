@@ -1,17 +1,26 @@
-package net.hrec.pruebatecnica.usecases.common
+package net.hrec.pruebatecnica.usecases.home
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import net.hrec.pruebatecnica.R
 import net.hrec.pruebatecnica.databinding.BeerViewHolderBinding
 import net.hrec.pruebatecnica.model.BeersResponse
+import net.hrec.pruebatecnica.provider.sqlite.SQLiteApp
+import net.hrec.pruebatecnica.usecases.common.interfaces.DialogEvent
 
-class BeersListAdapter(val beerId: (Int) -> Unit): RecyclerView.Adapter<BeersListAdapter.BeerViewHolder>() {
+class BeersListAdapter(val context: Fragment, val beerId: (Int) -> Unit): RecyclerView.Adapter<BeersListAdapter.BeerViewHolder>() {
     private var listBeers = mutableListOf<BeersResponse>()
     private val favoriteSelectedList = mutableListOf<Int>()
+    private var dataBase: SQLiteApp? = null
+    private lateinit var dialog: DialogEvent
+
     class BeerViewHolder(binding: BeerViewHolderBinding): RecyclerView.ViewHolder(binding.root) {
         private val tvBeerName = binding.tvBeerName
         private val tvBeerTagName = binding.tvBeerTagName
@@ -27,14 +36,23 @@ class BeersListAdapter(val beerId: (Int) -> Unit): RecyclerView.Adapter<BeersLis
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(list: MutableList<BeersResponse>) {
-        listBeers = list
+    fun setData(list: List<BeersResponse>) {
+        listBeers.addAll(list)
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = BeerViewHolderBinding.inflate(layoutInflater, parent, false)
+        dataBase = SQLiteApp(parent.context)
+        dialog = context as HomeFragment
+        var pos = 0
+        listBeers.forEach {
+            if (dataBase?.isFavoriteBeer(it.id ?: 0) == true) {
+                addPosToFavIcon(pos)
+            }
+            pos += 1
+        }
         return BeerViewHolder(binding)
     }
 
@@ -44,41 +62,54 @@ class BeersListAdapter(val beerId: (Int) -> Unit): RecyclerView.Adapter<BeersLis
         if (favoriteSelectedList.isEmpty()) {
             holder.ibFavorite.setImageResource(R.drawable.ic_favorite_border)
         } else {
-            var existPositionInList = false
-            favoriteSelectedList.forEach {
-               if (it == position) {
-                   existPositionInList = true
-                   return@forEach
-               }
-            }
-            if (existPositionInList) {
+            if (isFavoriteSelected(position)) {
                 holder.ibFavorite.setImageResource(R.drawable.ic_favorite)
             } else {
                 holder.ibFavorite.setImageResource(R.drawable.ic_favorite_border)
             }
         }
         holder.ibFavorite.setOnClickListener {
-            holder.ibFavorite.setImageResource(R.drawable.ic_favorite)
-            if (favoriteSelectedList.isEmpty()) {
-                favoriteSelectedList.add(position)
-            } else {
-                var isInList = false
-                favoriteSelectedList.forEach {
-                    if (it == position) {
-                        isInList = true
-                    }
-                }
-                if (isInList) {
-                    favoriteSelectedList.remove(position)
+            dialog.onVisibleDialog()
+            it.isEnabled = false
+            holder.clHolderEvent.isEnabled = false
+            Handler(Looper.getMainLooper()).post {
+                if (isFavoriteSelected(position)) {
+                    dataBase?.deleteFavoriteBeer(beer.id!!)
                 } else {
-                    favoriteSelectedList.add(position)
+                    dataBase?.insertFavoriteBeer(beer)
                 }
+                addPosToFavIcon(position)
+                notifyDataSetChanged()
+                dialog.onGoneDialog()
+                it.isEnabled = true
+                holder.clHolderEvent.isEnabled = true
             }
-            notifyDataSetChanged()
         }
         holder.clHolderEvent.setOnClickListener {
             beerId(beer.id!!)
         }
+    }
+
+    private fun addPosToFavIcon(position: Int){
+        if (favoriteSelectedList.isEmpty()) {
+            favoriteSelectedList.add(position)
+        } else {
+            if (isFavoriteSelected(position)) {
+                favoriteSelectedList.remove(position)
+            } else {
+                favoriteSelectedList.add(position)
+            }
+        }
+    }
+
+    private fun isFavoriteSelected(position: Int): Boolean{
+        var isInList = false
+        favoriteSelectedList.forEach {
+            if (it == position) {
+                isInList = true
+            }
+        }
+        return isInList
     }
 
     override fun getItemCount(): Int {
