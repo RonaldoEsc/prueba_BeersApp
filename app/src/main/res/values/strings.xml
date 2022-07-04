@@ -22,4 +22,5 @@
     <string name="hops_txt">Hops:</string>
     <string name="malt_txt">Malt:</string>
     <string name="food_pairing_txt">Food Pairing</string>
+    <string name="progress_message">Cargando elementos, espere un momento</string>
 </resources>
