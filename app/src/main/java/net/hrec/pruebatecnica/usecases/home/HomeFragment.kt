@@ -14,16 +14,6 @@ import net.hrec.pruebatecnica.databinding.FragmentLoginBinding
 import net.hrec.pruebatecnica.usecases.common.BeersListAdapter
 import net.hrec.pruebatecnica.usecases.common.interfaces.NavEventListener
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
@@ -58,11 +48,5 @@ class HomeFragment : Fragment() {
         viewModel.beersList.observe(viewLifecycleOwner) { list ->
             (binding.rvBeers.adapter as BeersListAdapter).setData(list.toMutableList())
         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            HomeFragment()
     }
 }

@@ -80,12 +80,12 @@ class DetalleBeerFragment : Fragment() {
         llm = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         llm.orientation = LinearLayoutManager.VERTICAL
         binding.rvHopsTips.layoutManager = llm
-        binding.rvHopsTips.adapter = FoodPairingAdapter(beer.food_pairing)
+        binding.rvHopsTips.adapter = IngredientsAdapter(beer.ingredients, false)
 
         llm = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         llm.orientation = LinearLayoutManager.VERTICAL
         binding.rvMaltTips.layoutManager = llm
-        binding.rvMaltTips.adapter = FoodPairingAdapter(beer.food_pairing)
+        binding.rvMaltTips.adapter = IngredientsAdapter(beer.ingredients, true)
 
         binding.progressCircular.visibility = View.GONE
     }
