@@ -13,4 +13,11 @@
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="background_principal">
+        <item name="android:background">@color/black_theme</item>
+    </style>
+
+    <style name="background_fav">
+        <item name="android:background">@color/black_theme</item>
+    </style>
 </resources>

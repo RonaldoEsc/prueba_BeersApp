@@ -49,11 +49,16 @@ class HomeFragment : Fragment(), DialogEvent {
             onGoneDialog()
         }
 
+        binding.tbGoToFavorites.setOnClickListener {
+            val navEvent: NavEventListener = activity as HomeActivity
+            val event = HomeFragmentDirections.actionHomeFragmentToFavoritesFragment()
+            navEvent.onNavigateChangeEvent(event)
+        }
+
         viewModel.getBeers(1, 80)
 
         viewModel.beersList.observe(viewLifecycleOwner) { list ->
-            (binding.rvBeers.adapter as BeersListAdapter).setData(list)
-            onGoneDialog()
+            (binding.rvBeers.adapter as BeersListAdapter).setData(list, activity!!.baseContext)
         }
     }
 
@@ -61,7 +66,7 @@ class HomeFragment : Fragment(), DialogEvent {
         progress = AlertDialog.Builder(context)
             .setView(ProgressAlertBinding.inflate(layoutInflater).root)
             .setCancelable(false)
-            .create()
+            .show()
     }
 
     override fun onGoneDialog() {

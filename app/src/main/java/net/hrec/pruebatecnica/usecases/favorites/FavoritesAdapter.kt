@@ -14,9 +14,9 @@ class FavoritesAdapter(): RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHold
     private var listBeers = mutableListOf<BeersResponse>()
     private var dataBase: SQLiteApp? = null
     inner class FavoriteViewHolder(binding: FavoritesViewHolderBinding):RecyclerView.ViewHolder(binding.root) {
-        val imgBeer = binding.imgBeer
-        val tvBeerName = binding.tvBeerName
-        val tvBeerTagName = binding.tvBeerTagName
+        private val imgBeer = binding.imgBeer
+        private val tvBeerName = binding.tvBeerName
+        private val tvBeerTagName = binding.tvBeerTagName
         val rateBeer = binding.rateBeer
 
         fun bind(beer: BeersResponse) {
@@ -28,6 +28,7 @@ class FavoritesAdapter(): RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHold
     }
 
     fun setData(list: List<BeersResponse>) {
+        listBeers.clear()
         listBeers.addAll(list)
         notifyDataSetChanged()
     }
@@ -46,7 +47,7 @@ class FavoritesAdapter(): RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHold
             if (fromUser) {
                 beer.rate = rating.toInt()
                 dataBase?.updateRate(beer.id!!, beer.rate)
-                Log.e( "onBindViewHolder", "${ratingBar.rating} comparar con: $rating")
+                Log.v( "FavoritesAdapter", "${ratingBar.rating} comparar con: $rating")
             }
         }
     }

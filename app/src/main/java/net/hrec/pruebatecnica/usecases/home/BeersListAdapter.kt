@@ -15,7 +15,7 @@ import net.hrec.pruebatecnica.model.BeersResponse
 import net.hrec.pruebatecnica.provider.sqlite.SQLiteApp
 import net.hrec.pruebatecnica.usecases.common.interfaces.DialogEvent
 
-class BeersListAdapter(val context: Fragment, val beerId: (Int) -> Unit): RecyclerView.Adapter<BeersListAdapter.BeerViewHolder>() {
+class BeersListAdapter(private val mContext: Fragment, val beerId: (Int) -> Unit): RecyclerView.Adapter<BeersListAdapter.BeerViewHolder>() {
     private var listBeers = mutableListOf<BeersResponse>()
     private val favoriteSelectedList = mutableListOf<Int>()
     private var dataBase: SQLiteApp? = null
@@ -36,16 +36,11 @@ class BeersListAdapter(val context: Fragment, val beerId: (Int) -> Unit): Recycl
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(list: List<BeersResponse>) {
+    fun setData(list: List<BeersResponse>, context: Context) {
+        listBeers.clear()
+        favoriteSelectedList.clear()
         listBeers.addAll(list)
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = BeerViewHolderBinding.inflate(layoutInflater, parent, false)
-        dataBase = SQLiteApp(parent.context)
-        dialog = context as HomeFragment
+        dataBase = SQLiteApp(context)
         var pos = 0
         listBeers.forEach {
             if (dataBase?.isFavoriteBeer(it.id ?: 0) == true) {
@@ -53,6 +48,13 @@ class BeersListAdapter(val context: Fragment, val beerId: (Int) -> Unit): Recycl
             }
             pos += 1
         }
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = BeerViewHolderBinding.inflate(layoutInflater, parent, false)
+        dialog = mContext as HomeFragment
         return BeerViewHolder(binding)
     }
 
@@ -87,6 +89,9 @@ class BeersListAdapter(val context: Fragment, val beerId: (Int) -> Unit): Recycl
         }
         holder.clHolderEvent.setOnClickListener {
             beerId(beer.id!!)
+        }
+        Handler(Looper.getMainLooper()).post {
+            dialog.onGoneDialog()
         }
     }
 

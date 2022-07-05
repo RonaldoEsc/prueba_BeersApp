@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import net.hrec.pruebatecnica.databinding.FragmentFavoritesBinding
 
@@ -34,6 +35,10 @@ class FavoritesFragment : Fragment() {
         binding.rvBeers.layoutManager = llm
         binding.rvBeers.adapter = FavoritesAdapter()
         viewModel.getFavorites(context!!)
+
+        binding.tbButtonBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         viewModel.favoriteBeersList.observe(viewLifecycleOwner) { list ->
             (binding.rvBeers.adapter as FavoritesAdapter).setData(list)

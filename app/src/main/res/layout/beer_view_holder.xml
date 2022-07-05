@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
+    style="@style/background_principal"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,6 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:lines="1"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/imgBeer"
             app:layout_constraintRight_toRightOf="parent"/>
@@ -38,6 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:lines="2"
+            android:textSize="14sp"
+            android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@+id/tvBeerName"
             app:layout_constraintLeft_toRightOf="@+id/imgBeer"
             app:layout_constraintRight_toRightOf="parent"

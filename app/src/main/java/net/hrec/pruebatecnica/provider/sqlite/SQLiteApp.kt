@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import net.hrec.pruebatecnica.model.BeersResponse
 
 class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
@@ -34,14 +35,13 @@ class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null
     private fun isBeerInTable(id: Int): String {
         val db = this.readableDatabase
         var name = ""
-        val cursor =
-            db.query(TABLE_FAVORITE_NAME, arrayOf(COLUMN_BEER_ID), null, null, null, null, null, null)
         if (db.isOpen) {
+            val cursor =
+                db.query(TABLE_FAVORITE_NAME, arrayOf(COLUMN_BEER_ID), null, null, null, null, null, null)
             if (cursor.count > 0) {
                 do {
                     cursor.moveToFirst()
                     for (columnInfo in 0 until cursor.columnCount) {
-
                         if (id == cursor.getInt(cursor.getColumnIndex(COLUMN_BEER_ID))) {
                             name = cursor.getString(cursor.getColumnIndex(COLUMN_BEER_NAME))
                         }
@@ -49,6 +49,7 @@ class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null
                 } while (cursor.moveToNext())
             }
             cursor.close()
+            db.close()
         }
         return name
     }
@@ -64,7 +65,7 @@ class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null
 
             val cursor = db.query(
                 TABLE_FAVORITE_NAME, columns, null, null, null, null,
-                COLUMN_BEER_RATE, null
+                "$COLUMN_BEER_RATE DESC", null
             )
             if (cursor.count > 0) {
                 cursor.moveToFirst()
@@ -112,7 +113,7 @@ class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null
         if (db.isOpen) {
             val cursor = db.query(
                 TABLE_FAVORITE_NAME, arrayOf(COLUMN_BEER_ID), null, null, null, null,
-                null, null
+                COLUMN_BEER_ID, null
             )
             if (cursor.count > 0) {
                 cursor.moveToFirst()

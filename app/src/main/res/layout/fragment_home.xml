@@ -79,6 +79,7 @@
         android:id="@+id/rvBeers"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/recycler_back"
         app:layout_constraintTop_toBottomOf="@+id/tbHome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
