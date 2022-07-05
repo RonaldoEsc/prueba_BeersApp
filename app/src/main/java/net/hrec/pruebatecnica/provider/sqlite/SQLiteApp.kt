@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import net.hrec.pruebatecnica.model.BeersResponse
+import net.hrec.pruebatecnica.model.LoginUserData
 
 class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
     DATABASE_VERSION) {
@@ -31,7 +32,24 @@ class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null
         db.execSQL("DROP TABLE IF EXISTS $TABLE_FAVORITE_NAME")
         onCreate(db)
     }
+    /** * * * * * * * *
+     * Tabla usuarios *
+     * * * * * * * * * */
 
+    fun insertUser(user: LoginUserData) {
+        val values = ContentValues()
+        values.put(COLUMN_BEER_NAME, user.userName)
+        values.put(COLUMN_BEER_TAG, user.Password)
+        val db = this.writableDatabase
+        if (db.isOpen) {
+            db.insert(TABLE_FAVORITE_NAME, null, values)
+            db.close()
+        }
+    }
+
+    /** * * * * * * * **
+     * tabla favoritos *
+     * * * * * * * * * */
     private fun isBeerInTable(id: Int): String {
         val db = this.readableDatabase
         var name = ""

@@ -13,7 +13,7 @@
         <entry key="app/src/main/res/layout/fragment_detalle_beer.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.12083333333333333" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.12083333333333333" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.12083333333333333" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.18" />
         <entry key="app/src/main/res/layout/progress_alert.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/layout/vh_food_pairing.xml" value="0.2882205513784461" />
       </map>

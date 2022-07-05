@@ -8,6 +8,7 @@ import net.hrec.pruebatecnica.model.loginmodel.LoginRepository
 import net.hrec.pruebatecnica.model.loginmodel.Result
 
 import net.hrec.pruebatecnica.R
+import net.hrec.pruebatecnica.model.LoginResult
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -44,7 +45,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         return if (username.contains("@")) {
             Patterns.EMAIL_ADDRESS.matcher(username).matches()
         } else {
-            username.isNotBlank()
+            return false
         }
     }
 

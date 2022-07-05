@@ -10,7 +10,7 @@ import net.hrec.pruebatecnica.databinding.FavoritesViewHolderBinding
 import net.hrec.pruebatecnica.model.BeersResponse
 import net.hrec.pruebatecnica.provider.sqlite.SQLiteApp
 
-class FavoritesAdapter(): RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder>() {
+class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder>() {
     private var listBeers = mutableListOf<BeersResponse>()
     private var dataBase: SQLiteApp? = null
     inner class FavoriteViewHolder(binding: FavoritesViewHolderBinding):RecyclerView.ViewHolder(binding.root) {
