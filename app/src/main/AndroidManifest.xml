@@ -16,9 +16,6 @@
         android:theme="@style/Theme.PruebaTecnica"
         tools:targetApi="31">
         <activity
-            android:name=".usecases.detalle.DetalleBeerActivity"
-            android:exported="false" />
-        <activity
             android:name=".usecases.home.HomeActivity"
             android:exported="true">
             <intent-filter>

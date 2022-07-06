@@ -12,6 +12,9 @@ import com.squareup.picasso.Picasso
 import net.hrec.pruebatecnica.R
 import net.hrec.pruebatecnica.databinding.FragmentDetalleBeerBinding
 import net.hrec.pruebatecnica.model.DetailBeerResponse
+import net.hrec.pruebatecnica.usecases.common.interfaces.NavEventListener
+import net.hrec.pruebatecnica.usecases.favorites.FavoritesFragmentDirections
+import net.hrec.pruebatecnica.usecases.home.HomeActivity
 import net.hrec.pruebatecnica.util.UtilString.Companion.convertDoubleOrIntToString
 
 class DetalleBeerFragment : Fragment() {
@@ -42,7 +45,9 @@ class DetalleBeerFragment : Fragment() {
         binding.tbTitle.text = "Beer Description"
         binding.progressCircular.visibility = View.VISIBLE
         binding.tbButtonBack.setOnClickListener {
-            findNavController().popBackStack()
+            val navEvent: NavEventListener = activity as HomeActivity
+            val event = DetalleBeerFragmentDirections.actionBackToHomeFragment()
+            navEvent.onNavigateChangeEvent(event)
         }
 
         viewModel = ViewModelProvider(this)[DetalleBeerViewModel::class.java]

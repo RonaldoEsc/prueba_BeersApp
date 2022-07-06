@@ -4,7 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
 import net.hrec.pruebatecnica.model.BeersResponse
 import net.hrec.pruebatecnica.model.LoginUserData
 
@@ -47,6 +46,41 @@ class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null
         }
     }
 
+    fun getUser(): List<LoginUserData> {
+        val db = this.readableDatabase
+        val list = mutableListOf<LoginUserData>()
+
+        if (db.isOpen) {
+            val columns = arrayOf(COLUMN_USER_NAME)
+
+            val cursor = db.query(
+                TABLE_USER_NAME, columns, null, null, null, null,
+                null, null
+            )
+            if (cursor.count > 0) {
+                cursor.moveToFirst()
+                do {
+                    val objRequest = LoginUserData(
+                        userName = cursor.getString(cursor.getColumnIndex(COLUMN_USER_NAME))
+                    )
+                    list.add(objRequest)
+                } while (cursor.moveToNext())
+            }
+        }
+        return list.toList()
+    }
+
+    fun deleteUser(user: String) {
+        val db = this.writableDatabase
+
+        val where = "$COLUMN_USER_NAME=?"
+        val whereArgs = arrayOf(user)
+        if (db.isOpen) {
+            db.delete(TABLE_FAVORITE_NAME, where, whereArgs)
+            db.close()
+        }
+    }
+
     /** * * * * * * * **
      * tabla favoritos *
      * * * * * * * * * */
@@ -72,7 +106,7 @@ class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null
         return name
     }
 
-    fun getAllFavorites(): MutableList<BeersResponse> {
+    fun getAllFavorites(): List<BeersResponse> {
         val db = this.readableDatabase
         val list = mutableListOf<BeersResponse>()
         if (db.isOpen) {
@@ -98,7 +132,7 @@ class SQLiteApp(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null
                 } while (cursor.moveToNext())
             }
         }
-        return list
+        return list.toList()
     }
 
     fun insertFavoriteBeer(beer: BeersResponse) {

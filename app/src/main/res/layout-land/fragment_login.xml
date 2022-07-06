@@ -15,9 +15,9 @@
         android:id="@+id/til_user_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
         app:errorTextColor="@color/red_alert_dark"
         app:hintEnabled="false"
         app:layout_constraintTop_toTopOf="parent"
@@ -40,9 +40,9 @@
         android:id="@+id/til_user_pass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="50dp"
         app:errorTextColor="@color/red_alert_dark"
         app:hintEnabled="false"
         app:layout_constraintTop_toBottomOf="@+id/til_user_email"
@@ -80,25 +80,6 @@
         app:layout_constraintTop_toBottomOf="@+id/til_user_pass"
         app:layout_constraintVertical_bias="0.2" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="64dp"
-        app:cornerRadius="20dp"
-        android:enabled="false"
-        android:text="@string/txt_registrar"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login"
-        app:layout_constraintVertical_bias="0.2" />
-
     <ProgressBar
         android:id="@+id/loading"
         android:layout_width="wrap_content"
@@ -112,5 +93,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/til_user_pass"
         app:layout_constraintEnd_toEndOf="@+id/til_user_pass"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

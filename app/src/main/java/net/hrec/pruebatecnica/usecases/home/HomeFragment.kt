@@ -1,26 +1,25 @@
 package net.hrec.pruebatecnica.usecases.home
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import net.hrec.pruebatecnica.databinding.FragmentHomeBinding
 import net.hrec.pruebatecnica.databinding.ProgressAlertBinding
 import net.hrec.pruebatecnica.usecases.common.interfaces.DialogEvent
 import net.hrec.pruebatecnica.usecases.common.interfaces.NavEventListener
+import net.hrec.pruebatecnica.util.Constants.Companion.PREF_NAME
 
 class HomeFragment : Fragment(), DialogEvent {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
     private lateinit var progress: AlertDialog
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,10 +54,26 @@ class HomeFragment : Fragment(), DialogEvent {
             navEvent.onNavigateChangeEvent(event)
         }
 
+        binding.tbLogOut.setOnClickListener {
+            val sharedPref = context?.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+            val editor = sharedPref?.edit()
+            editor?.clear()
+            editor?.apply()
+            val navEvent: NavEventListener = activity as HomeActivity
+            val event = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
+            navEvent.onNavigateChangeEvent(event)
+        }
+
         viewModel.getBeers(1, 80)
 
         viewModel.beersList.observe(viewLifecycleOwner) { list ->
             (binding.rvBeers.adapter as BeersListAdapter).setData(list, activity!!.baseContext)
+        }
+
+        viewModel.closeSession.observe(viewLifecycleOwner) { isClosed ->
+            if (isClosed) {
+                findNavController().popBackStack()
+            }
         }
     }
 

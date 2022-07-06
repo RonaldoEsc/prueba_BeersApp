@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
+import net.hrec.pruebatecnica.R
 import net.hrec.pruebatecnica.databinding.ActivityHomeBinding
-import net.hrec.pruebatecnica.usecases.common.interfaces.BackEvent
 import net.hrec.pruebatecnica.usecases.common.interfaces.NavEventListener
 import kotlin.system.exitProcess
 
@@ -20,6 +20,7 @@ class HomeActivity : AppCompatActivity(), NavEventListener {
 
     override fun onNavigateChangeEvent(action: NavDirections) {
         val navController = binding.navHostFragment.findNavController()
+        navController.clearBackStack(R.navigation.nav_graph)
         navController.navigate(action)
     }
 

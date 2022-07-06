@@ -57,5 +57,9 @@
             android:name="id"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_back_to_homeFragment"
+            app:launchSingleTop="true"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

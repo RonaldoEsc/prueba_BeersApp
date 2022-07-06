@@ -6,6 +6,7 @@
     <string name="action_sign_in">inicia sesion o registrate</string>
     <string name="action_sign_in_short">inicia sesion</string>
     <string name="welcome">"bienvenido!"</string>
+    <string name="empty_username">campos vacíos</string>
     <string name="invalid_username">usuario no valido</string>
     <string name="invalid_password">las contraseñas deben ser de mas de 6 caracteres</string>
     <string name="login_failed">"fallo en inicio sesion"</string>
@@ -23,4 +24,5 @@
     <string name="malt_txt">Malt:</string>
     <string name="food_pairing_txt">Food Pairing</string>
     <string name="progress_message" tools:ignore="Typos">Cargando elementos, espere un momento por favor</string>
+    <string name="txt_registrar">REGISTRAR</string>
 </resources>

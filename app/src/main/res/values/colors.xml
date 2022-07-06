@@ -13,4 +13,5 @@
     <!-- util colors-->
     <color name="transparent">#00000000</color>
     <color name="blur_dialog">#5E212121</color>
+    <color name="red_alert_dark">#B30000</color>
 </resources>

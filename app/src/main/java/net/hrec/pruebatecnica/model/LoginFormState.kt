@@ -1,4 +1,4 @@
-package net.hrec.pruebatecnica.usecases.login
+package net.hrec.pruebatecnica.model
 
 /**
  * Data validation state of the login form.

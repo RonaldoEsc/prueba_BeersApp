@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import net.hrec.pruebatecnica.model.BeersResponse
 import net.hrec.pruebatecnica.provider.sqlite.SQLiteApp
 
-class FavoritesViewModel(): ViewModel() {
+class FavoritesViewModel: ViewModel() {
     val favoriteBeersList = MutableLiveData<List<BeersResponse>>()
 
     fun getFavorites(context: Context) {

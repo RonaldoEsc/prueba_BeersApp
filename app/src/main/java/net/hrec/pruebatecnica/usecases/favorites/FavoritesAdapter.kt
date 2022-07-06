@@ -10,13 +10,14 @@ import net.hrec.pruebatecnica.databinding.FavoritesViewHolderBinding
 import net.hrec.pruebatecnica.model.BeersResponse
 import net.hrec.pruebatecnica.provider.sqlite.SQLiteApp
 
-class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder>() {
+class FavoritesAdapter(private val beerId: (Int) -> Unit): RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder>() {
     private var listBeers = mutableListOf<BeersResponse>()
     private var dataBase: SQLiteApp? = null
     inner class FavoriteViewHolder(binding: FavoritesViewHolderBinding):RecyclerView.ViewHolder(binding.root) {
         private val imgBeer = binding.imgBeer
         private val tvBeerName = binding.tvBeerName
         private val tvBeerTagName = binding.tvBeerTagName
+        val clHolderEvent = binding.clHolderEvent
         val rateBeer = binding.rateBeer
 
         fun bind(beer: BeersResponse) {
@@ -49,6 +50,9 @@ class FavoritesAdapter: RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder
                 dataBase?.updateRate(beer.id!!, beer.rate)
                 Log.v( "FavoritesAdapter", "${ratingBar.rating} comparar con: $rating")
             }
+        }
+        holder.clHolderEvent.setOnClickListener {
+            beerId(beer.id!!)
         }
     }
 
